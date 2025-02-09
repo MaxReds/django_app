@@ -1,0 +1,26 @@
+{% extends 'recipes/base.html' %}
+
+{% block title %}{{ recipe.title }}{% endblock %}
+
+{% block content %}
+<h1>{{ recipe.title }}</h1>
+<p>{{ recipe.description }}</p>
+<h2>Шаги приготовления</h2>
+{% if recipe.steps %}
+    <ol>
+        {% for step in recipe.steps.splitlines %}  {# Разбиваем текст на строки #}
+            <li>{{ step }}</li>
+        {% endfor %}
+    </ol>
+{% else %}
+    <p>Шаги приготовления отсутствуют</p>
+{% endif %}
+<p>Время приготовления: {{ recipe.cooking_time }} минут</p>
+{% if recipe.image %}
+    <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+{% endif %}
+<p>Автор: {{ recipe.author.username }}</p>
+{% if user == recipe.author %}
+    <a href="{% url 'edit_recipe' recipe.id %}">Редактировать</a>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'recipes/base.html' %}
+
+{% block title %}{{ category.name }}{% endblock %}
+
+{% block content %}
+<h1>Рецепты в категории "{{ category.name }}"</h1>
+<ul>
+    {% for recipe in recipes %}
+        <li><a href="{% url 'recipe_detail' recipe.id %}">{{ recipe.title }}</a></li>
+    {% empty %}
+        <p>Рецептов пока нет.</p>
+    {% endfor %}
+</ul>
+{% endblock %}
